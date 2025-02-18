@@ -2,8 +2,11 @@ class MinStack(object):
 
     def __init__(self):
         self.stack = []
+        self.mins = []
 
     def push(self, val):
+        if len(self.mins) == 0 or self.mins[-1] >= val:
+            self.mins.append(val)
         self.stack.append(val)
         """
         :type val: int
@@ -12,6 +15,8 @@ class MinStack(object):
         
 
     def pop(self):
+        if len(self.mins) > 0 and self.mins[-1] == self.stack[-1]:
+            self.mins.pop()
         self.stack.pop()
         """
         :rtype: None
@@ -26,8 +31,7 @@ class MinStack(object):
         
 
     def getMin(self):
-        sortedSelf = sorted(self.stack)
-        return sortedSelf[0]
+        return self.mins[-1]
         """
         :rtype: int
         """
